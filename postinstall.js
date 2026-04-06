@@ -1,11 +1,12 @@
-const semver = require('semver');
-const colors = require('colors/safe');
+import { satisfies } from 'semver'
+import { red } from 'colors/safe'
 
-const { engines: { node: nodeVersion }} = require('./package');
+import _package from './package'
+const { engines: { node: nodeVersion } } = _package
 
-if (!semver.satisfies(process.version, nodeVersion)) {
+if (!satisfies(process.version, nodeVersion)) {
   process.emitWarning(
-    colors.red(`
+    red(`
       For this task we are strictly recomend you to use node ${nodeVersion}.
       Now you are using node ${process.version}, if you are using any of features that not supported by node ${nodeVersion}, score won't be submitted
     `)
